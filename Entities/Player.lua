@@ -1,4 +1,4 @@
-local Input = require("../Engine.Input")
+local Input = require("Engine.Input")
 local Player = {}
 
 function Player.load()

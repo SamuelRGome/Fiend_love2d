@@ -8,15 +8,18 @@ input.joy = nil
 function input.load()
     local joysticks = love.joystick.getJoysticks()
     input.joy = joysticks[1]
-end
-
-function input.update(dt)
-    local dx, dy = 0, 0
 
     -- Movimento por teclado (setas)
     function input.isDown(button)
         return love.keyboard.isDown(button)
     end
+    
+end
+
+function input.update(dt)
+    local dx, dy = 0, 0
+
+    
 
     -- Movimento por analógico esquerdo
     if input.joy then

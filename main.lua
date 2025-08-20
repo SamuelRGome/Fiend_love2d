@@ -1,5 +1,6 @@
 local Input = require("Engine.Input")
 local Player = require("Entities.Player")
+local Platform = require("Entities.Platform")
 
 function love.load()
     love.window.setMode(640, 480)
@@ -35,4 +36,7 @@ function love.draw()
 
     -- desenha player
     Player.draw()
+
+    -- aqui vai desenhar plataformas/inimigos
+    Platform.draw()
 end
