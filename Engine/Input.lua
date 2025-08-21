@@ -1,38 +1,42 @@
-local input = {}
+local Input = {}
 
-input.dx = 0
-input.dy = 0
-input.speed = 200
-input.joy = nil
+Input.dx, Input.dy = 0, 0
+Input.joy = nil
+Input.DEADZONE = 0.2
 
-function input.load()
+function Input.load()
     local joysticks = love.joystick.getJoysticks()
-    input.joy = joysticks[1]
-
-    -- Movimento por teclado (setas)
-    function input.isDown(button)
-        return love.keyboard.isDown(button)
-    end
-    
+    Input.joy = joysticks[1]
 end
 
-function input.update(dt)
+function Input.update(dt)
     local dx, dy = 0, 0
 
-    
+    -- Teclado
+    if love.keyboard.isDown("left")  then dx = dx - 1 end
+    if love.keyboard.isDown("right") then dx = dx + 1 end
+    if love.keyboard.isDown("up")    then dy = dy - 1 end
+    if love.keyboard.isDown("down")  then dy = dy + 1 end
 
-    -- Movimento por analógico esquerdo
-    if input.joy then
-        local axisX = input.joy:getGamepadAxis("leftx")
-        local axisY = input.joy:getGamepadAxis("lefty")
+    -- Gamepad (analógico + dpad)
+    if Input.joy then
+        local ax = Input.joy:getGamepadAxis("leftx") or 0
+        local ay = Input.joy:getGamepadAxis("lefty") or 0
+        if math.abs(ax) > Input.DEADZONE then dx = dx + ax end
+        if math.abs(ay) > Input.DEADZONE then dy = dy + ay end
 
-        -- Deadzone
-        if math.abs(axisX) > 0.2 then dx = dx + axisX end
-        if math.abs(axisY) > 0.2 then dy = dy + axisY end
+        if Input.joy:isGamepadDown("dpleft")  then dx = dx - 1 end
+        if Input.joy:isGamepadDown("dpright") then dx = dx + 1 end
+        if Input.joy:isGamepadDown("dpup")    then dy = dy - 1 end
+        if Input.joy:isGamepadDown("dpdown")  then dy = dy + 1 end
     end
 
-    input.dx = dx
-    input.dy = dy
+    Input.dx, Input.dy = dx, dy
 end
 
-return input
+-- IMPORTANTE: expor isDown FORA do update
+function Input.isDown(key)
+    return love.keyboard.isDown(key)
+end
+
+return Input
