@@ -15,7 +15,7 @@ function Input.update(dt)
     -- Teclado
     if love.keyboard.isDown("left")  then dx = dx - 1 end
     if love.keyboard.isDown("right") then dx = dx + 1 end
-    if love.keyboard.isDown("up")    then dy = dy - 1 end
+    --if love.keyboard.isDown("up")    then dy = dy - 1 end
     if love.keyboard.isDown("down")  then dy = dy + 1 end
 
     -- Gamepad (analógico + dpad)
