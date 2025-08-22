@@ -1,9 +1,9 @@
 local Input = require("Engine.Input")
 local Player = require("Entities.Player")
 local Platform = require("Entities.Platform")
+local Background = require("Entities.Background")
 local bump = require("Libs/bump/bump")
 
-local bg_y = 0 -- posição vertical do background
 
 function love.load()
     Input.load()
@@ -29,7 +29,7 @@ end
 
 function love.draw()
     -- desenha o background considerando a posição Y
-    love.graphics.draw(bg_Img, 0, bg_y)
+    background.draw()
 
     Player.draw()
     Platform.draw()
