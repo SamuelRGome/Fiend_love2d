@@ -7,10 +7,12 @@ function Background.load()
     Background.scrollY = 0
 end
 
-function Background.update(playerY, dt)
-    -- O background se move baseado na posição do player
-    -- Fator de parallax (0.5 = move metade da velocidade do player)
-    Background.scrollY = playerY * 0.5
+function Background.update(cameraY, dt)
+    -- O background se move baseado na posição da câmera
+    -- Fator de parallax (0.5 = move metade da velocidade da câmera)
+    -- Proteção contra valores nil
+    cameraY = cameraY or 0
+    Background.scrollY = cameraY * 0.5
 end
 
 function Background.draw()
